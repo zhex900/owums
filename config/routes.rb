@@ -77,5 +77,6 @@ Owums::Application.routes.draw do
   ###################
 
   #### Root Route --->
-  root :to => "accounts#instructions"
+  root :to => "account_sessions#new"
+  #### root :to => "accounts#instructions" ->
 end
