@@ -127,7 +127,7 @@ class AccountCommon < ActiveRecord::Base
     validates_presence_of :birth_date
     validate :birth_date_present_and_valid
   end
-  
+
   validates_presence_of :eula_acceptance, :message => :eula_must_be_accepted
   validates_presence_of :privacy_acceptance, :message => :privacy_must_be_accepted
 
@@ -153,7 +153,7 @@ class AccountCommon < ActiveRecord::Base
     methods = []
 
     if defined? OperatorSession.find.operator
-      methods.push VERIFY_BY_NOTHING  if OperatorSession.find.operator.has_role?('registrant_by_nothing')
+      methods.push VERIFY_BY_NOTHING if OperatorSession.find.operator.has_role?('registrant_by_nothing')
       methods.push VERIFY_BY_DOCUMENT if OperatorSession.find.operator.has_role?('registrant_by_id_card')
       # Add your methods here ...
       methods.push VERIFY_BY_MACADDRESS if CONFIG['mac_address_authentication']
@@ -164,15 +164,15 @@ class AccountCommon < ActiveRecord::Base
 
   def self.self_verification_methods
     methods = [VERIFY_BY_MOBILE]
-    
+
     if Configuration.get("paypal_enabled", "false") == "true"
       methods.push(VERIFY_BY_PAYPAL)
     end
-    
+
     if Configuration.get("gestpay_enabled", "false") == "true"
       methods.push(VERIFY_BY_GESTPAY)
     end
-    
+
     methods
   end
 
@@ -193,7 +193,7 @@ class AccountCommon < ActiveRecord::Base
   def verify_with_paypal?
     self.verification_method == VERIFY_BY_PAYPAL
   end
-  
+
   def verify_with_gestpay?
     self.verification_method == VERIFY_BY_GESTPAY
   end
@@ -254,7 +254,7 @@ class AccountCommon < ActiveRecord::Base
   def email_confirmation
     read_attribute(:email_confirmation) ? read_attribute(:email_confirmation) : self.email
   end
-  
+
   def set_credit_card_info(data)
     values = {}
     if data.has_key?(:shop_transaction_id) && !data[:shop_transaction_id].nil?
@@ -275,7 +275,7 @@ class AccountCommon < ActiveRecord::Base
     end
     self.credit_card_info = values.to_json
   end
-  
+
   def generate_invoice!
     verification_method = Configuration.get('gestpay_webservice_method')
     invoicing_enabled = Configuration.get('gestpay_invoicing_enabled', 'true')
@@ -284,29 +284,29 @@ class AccountCommon < ActiveRecord::Base
     if verification_method == 'verification' or invoicing_enabled != 'true'
       return false
     end
-    
+
     invoice = Invoice.create_for_user(User.find(self.id))
-    
+
     # generate PDF with an asynchronous job with sidekiq
     # unfortunately sidekiq needs ruby 1.9.3
     # send PDF via email to both user and admin
     filename = invoice.generate_pdf()
-    
+
     # send invoice to admin
     Notifier.send_invoice_to_admin(filename).deliver
-    
+
     return filename
   end
-  
+
   def credit_card_identity_verify!
     if self.verify_with_paypal? or verify_with_gestpay?
       self.verified = true
       self.save!
-      
+
       filename = self.generate_invoice!
       # pass filename to new_account_notification
       self.new_account_notification!(filename)
-      
+
       self.captive_portal_login!
       self.clear_ip!
     else
@@ -330,18 +330,18 @@ class AccountCommon < ActiveRecord::Base
     reset_perishable_token!
     Notifier.password_reset_instructions(self).deliver
   end
-  
+
   def new_account_notification!(filename=false)
     if CONFIG['send_email_notification_to_users']
       Notifier.new_account_notification(self, filename).deliver
     end
   end
-  
+
   def store_ip(ip)
     # temporary store IP address, it must be called from the controller
     self.notes = "<ip>#{ip}</ip>"
   end
-  
+
   def retrieve_ip()
     # retrieves ip from notes
     matches = /<ip>(.*)<\/ip>/i.match(self.notes)
@@ -350,35 +350,35 @@ class AccountCommon < ActiveRecord::Base
       matches[1]
     end
   end
-  
+
   def clear_ip!
     # clear ip address from notes when finished
     self.notes = self.notes.gsub(/<ip>(.*)<\/ip>/i, '')
     self.save!
   end
-  
+
   def captive_portal_login(ip_address=false, timeout=false, config_check=true)
     # to use indipendently from configuration supply :config_check => false
     if not CONFIG['automatic_captive_portal_login'] and config_check
       return false
     end
-    
+
     # determine ip address
     ip_address = ip_address ? ip_address : self.retrieve_ip()
     # automatically log in an user in the captive portal to allow the user to surf
     cp_base_url = Configuration.get('captive_portal_baseurl', false)
-    
+
     if cp_base_url
       params = {
-        :username => self.username,
-        :password => self.crypted_password,
-        :ip => ip_address
+          :username => self.username,
+          :password => self.crypted_password,
+          :ip => ip_address
       }
       # specify session timeout if necessary to achieve a temporary login
       if timeout
         params[:timeout] = Configuration.get('gestpay_vbv_session', '300').to_i
       end
-      
+
       uri = URI::parse "#{cp_base_url}/api/v1/account/login"
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
@@ -390,17 +390,17 @@ class AccountCommon < ActiveRecord::Base
       raise 'key captive_portal_baseurl not present in the database'
     end
   end
-  
+
   alias captive_portal_login! captive_portal_login
-  
+
   def captive_portal_logout(ip_address=false)
     # determine ip address
     ip_address = ip_address ? ip_address : self.retrieve_ip()
     cp_base_url = Configuration.get('captive_portal_baseurl', false)
     if cp_base_url
       params = {
-        :username => self.username,
-        :ip => ip_address
+          :username => self.username,
+          :ip => ip_address
       }
       uri = URI::parse "#{cp_base_url}/api/v1/account/logout"
       http = Net::HTTP.new(uri.host, uri.port)
@@ -413,7 +413,7 @@ class AccountCommon < ActiveRecord::Base
       raise 'key captive_portal_baseurl not present in the database'
     end
   end
-  
+
   # determine if a login attempt is ok for verified by visa users
   def captive_portal_login_ok_for_vbv?(login_response)
     # successfully logged in
@@ -493,7 +493,14 @@ class AccountCommon < ActiveRecord::Base
   def traffic_sessions_from(date)
     [traffic_out_sessions_from(date), traffic_in_sessions_from(date)]
   end
-  
+
+  # Added Jake He
+  # return the total traffic in bytes from the a date
+  def traffic_from(date)
+
+    return traffic_out_sessions_from(date).flatten.each_slice(2).map(&:last).inject(0, :+)+traffic_in_sessions_from(date).flatten.each_slice(2).map(&:last).inject(0, :+)
+  end
+
   private
 
   def new_or_password_not_blank?
