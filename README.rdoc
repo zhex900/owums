@@ -1,5 +1,10 @@
 = OpenWISP User Management System
 
+AIM:
+
+CHANGES:
+1. Remove explaination page.
+
 == What is it?
 
 OpenWISP User Management System (OWUMS) is a Ruby on Rails application, capable of managing a wISP's user base. 
