@@ -1,0 +1,59 @@
+<%#
+# This file is part of the OpenWISP User Management System
+#
+# Copyright (C) 2012 OpenWISP.org
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#%>
+
+<div class="grid_6 prefix_3 suffix_3">
+  <div class="box">
+    <div class="block" id="forgot_password">
+
+      <h1>Abuse detected!</h1>
+      <p>
+      Hi,<br>
+      i see you're trying something nasty on the auth system...<br>
+      <br>
+      This incident will be reported.<br>
+      </p>
+      <h2>Your request</h2>
+      <table>
+        <tbody>
+          <tr>
+            <td>Your IP</td>
+            <td><%= request.remote_ip %></td>
+          </tr>
+          <tr>
+            <td>Request User Agent</td>
+            <td><%= request.env["HTTP_USER_AGENT"] %></td>
+          </tr>
+          <tr>
+            <td>Request URI</td>
+            <td><%= request.request_uri %></td>
+          </tr>
+          <tr>
+            <td>Request method</td>
+            <td><%= request.method %></td>
+          </tr>
+          <tr>
+            <td>Request Parameters</td>
+            <td><%= request.request_parameters %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>

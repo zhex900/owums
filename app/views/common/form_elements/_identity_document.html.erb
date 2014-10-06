@@ -1,0 +1,52 @@
+<%#
+# This file is part of the OpenWISP User Management System
+#
+# Copyright (C) 2012 OpenWISP.org
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#%>
+
+<% if owner.is_a? Account %>
+    <% if owner.verify_with_document? %>
+        <strong><%=t :Document_photo %></strong><br/>
+
+        <p class="center"><%= document_of owner %></p>
+    <% end %>
+<% elsif owner.is_a? User %>
+    <% if owner.can_signup_via?(AccountCommon::VERIFY_BY_DOCUMENT) %>
+        <% if owner.new_record? %>
+            <%# We have a new User %>
+            <div class="verification-block" style="display:none;" id="identity-document">
+              <% if owner.has_image? %>
+                  <strong><%=t :Document_photo_preview %></strong><br/>
+
+                  <p class="center"><%= document_of owner, :inline => true %></p>
+              <% end %>
+
+              <%= form.input :image_file %>
+              <%= form.input :image_file_temp, :as => :hidden %>
+            </div>
+        <% else %>
+            <% if owner.verify_with_document? %>
+                <strong><%=t :Document_photo %></strong><br/>
+
+                <%# We have an already existing User %>
+                <p class="center"><%= document_of owner, :inline => true %></p>
+
+                <%= form.input :image_file %>
+                <%= form.input :image_file_temp, :as => :hidden %>
+            <% end %>
+        <% end %>
+    <% end %>
+<% end %>

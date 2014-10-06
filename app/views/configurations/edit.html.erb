@@ -1,0 +1,50 @@
+<%#
+# This file is part of the OpenWISP User Management System
+#
+# Copyright (C) 2012 OpenWISP.org
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#%>
+
+<% content_for :after_defaults do %>
+  <%= stylesheet_link_tag 'jHtmlArea/jHtmlArea' %>
+  <%= javascript_include_tag "jHtmlArea-0.7.5.min" %>
+<% end %>
+
+<div class="grid_12">
+  <div class="box">
+    <h2><%=t :Edit_configuration_key %></h2>
+    
+    <%= form_for @configuration do |f| %>
+      <fieldset>
+        <legend><strong><%=t :Key %>:</strong> <%= @configuration.key %></legend>
+          <p>
+            <strong><%= label_tag t(:value) %>:</strong>
+            <br />
+            <%= f.text_area :value %>
+          </p>
+          <p>
+            <%= f.submit t(:Update), :class => 'submit button' %>
+          </p>
+      </fieldset>
+    <% end %>
+  </div>
+</div>
+<% if @html %>
+  <script type="text/javascript">
+    $('textarea').htmlarea({
+      css: '<%= root_url %>stylesheets/jHtmlArea/jHtmlArea.Editor.css'
+    });
+  </script>
+<% end %>

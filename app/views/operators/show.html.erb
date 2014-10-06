@@ -1,0 +1,78 @@
+<%#
+# This file is part of the OpenWISP User Management System
+#
+# Copyright (C) 2012 OpenWISP.org
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#%>
+
+<div class="grid_12">
+  <h2><%=t :Operator %> <%= @operator.login %></h2>
+</div>
+
+<div class="grid_3">
+  <div id="operator_roles" class="box">
+    <h2><%=t :Roles %></h2>
+    <ul>
+      <% @operator.roles.sort.each do |role|%>
+          <li><%= role %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<div class="grid_9">
+  <div id="operator_info" class="box">
+    <h2><%=t :Additional_info %></h2>
+    
+    <table>
+      <tbody>
+        <tr class="odd">
+          <td><strong><%=t :Logged_in %></strong></td>
+          <td><%=t @operator.logged_in? ? :affirmative : :negative %></td>
+        </tr>
+        <tr>
+          <td><strong><%=t :Current_login_at %></strong></td>
+          <td><%=l @operator.current_login_at rescue t(:blank) %></td>
+        </tr>
+        <tr class="odd">
+          <td><strong><%=t :Current_login_ip %></strong></td>
+          <td><%= @operator.current_login_ip || t(:blank) %></td>
+        </tr>
+        <tr>
+          <td><strong><%=t :Last_login_at %></strong></td>
+          <td><%=l @operator.last_login_at rescue t(:blank) %></td>
+        </tr>
+        <tr class="odd">
+          <td><strong><%=t :Last_login_ip %></strong></td>
+          <td><%= @operator.last_login_ip || t(:blank) %></td>
+        </tr>
+        <tr>
+          <td><strong><%=t :Login_count %></strong></td>
+          <td><%= @operator.login_count %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="grid_12">
+  <div class="box">
+    <h2><%=t :Notes %></h2>
+    <p><%= @operator.notes %></p>
+  </div>
+  <% if auth? :operators_manager %>
+    <p><%= link_to t(:Edit), edit_operator_path(@operator), :class => 'button' %></p>
+  <% end %>
+</div>

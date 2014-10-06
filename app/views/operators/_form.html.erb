@@ -1,0 +1,80 @@
+<%#
+# This file is part of the OpenWISP User Management System
+#
+# Copyright (C) 2012 OpenWISP.org
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#%>
+
+<%= form_for @operator do |f| %>
+    <fieldset>
+      <legend><strong><%=t :Operator %>:</strong> <%= @operator.login %></legend>
+      <% unless f.error_messages.nil? %>
+      <p><%= f.error_messages %></p>
+      <% end %>
+        
+      <p>
+        <strong><%= label_tag t(:login) %>:</strong>
+        <br />
+        <% if @operator.new_record? %>
+            <%= f.text_field :login %>
+        <% else %>
+            <%= f.text_field :login, :disabled => true %>
+        <% end %>
+      </p>
+      <p>
+        <strong><%= label_tag t(:password) %>:</strong>
+        <br />
+        <%= f.password_field :password %>
+      </p>
+      <p>
+        <strong><%= label_tag t(:password_confirmation) %>:</strong>
+        <br />
+        <%= f.password_field :password_confirmation %>
+      </p>
+
+      <p><strong><%= label_tag t(:Roles) %>:</strong></p>
+      <table id="operator_roles">
+        <thead>
+        <tr>
+          <th><%=t :Roles %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% Operator::ROLES.each do |role| %>
+            <tr>
+              <td>
+                <span class="hidden"><%= check_box_tag("operator[roles][]", role, @operator.roles.include?(role)) %></span> <strong><%= role %></strong>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+      <p>
+        <strong><%= label_tag t(:notes) %>:</strong>
+        <br />
+        <%= f.text_area :notes %>
+      </p>
+
+      <p>
+        <% if @operator.new_record? %>
+            <%= f.submit t(:Create), :class => 'submit button' %>
+        <% else %>
+            <%= f.submit t(:Edit), :class => 'submit button' %>
+        <% end %>
+      </p>
+    </fieldset>
+<% end %>
+

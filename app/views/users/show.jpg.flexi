@@ -1,0 +1,31 @@
+# This file is part of the OpenWISP User Management System
+#
+# Copyright (C) 2012 OpenWISP.org
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+@user.operate do |image|
+  if params[:size] == 'thumb'
+    image.resize '100'
+  else
+    image.resize '800x600', :crop => true
+    image.image_overlay 'public/images/logo.png',
+                        :alignment => :center,
+                        :offset => '20x20'
+    image.border :size => 10, :color => 'gray'
+    image.text I18n.t(:Document_photo)
+    image.unsharp_mask
+    image.shadow
+  end
+end

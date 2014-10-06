@@ -1,0 +1,110 @@
+<%#
+# This file is part of the OpenWISP User Management System
+#
+# Copyright (C) 2012 OpenWISP.org
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#%>
+
+<div id="search_results">
+  <div class="pagination">
+    <%= total_users %> <%=t :results %>
+    <%= paginate users, :remote => true %>
+  </div>
+  
+  <table id="users">
+    <thead>
+    <tr>
+      <th scope="col" <%= sort_td_class_helper "registered_at" %>>
+        <%= sort_remote_link_helper t(:Registration_date), 'registered_at' %>
+        <%= image_tag("arrow_up.gif", :class =>"arrow_up", :size => "14x14") %>
+        <%= image_tag("arrow_down.gif", :class =>"arrow_down", :size => "14x14") %>
+      </th>
+      <th scope="col" <%= sort_td_class_helper "username" %>>
+        <%= sort_remote_link_helper t(:Username), 'username' %>
+        <%= image_tag("arrow_up.gif", :class =>"arrow_up", :size => "14x14") %>
+        <%= image_tag("arrow_down.gif", :class =>"arrow_down", :size => "14x14") %>
+      </th>
+      <th scope="col" <%= sort_td_class_helper "given_name" %>>
+        <%= sort_remote_link_helper t(:Given_name), 'given_name' %>
+        <%= image_tag("arrow_up.gif", :class =>"arrow_up", :size => "14x14") %>
+        <%= image_tag("arrow_down.gif", :class =>"arrow_down", :size => "14x14") %>
+      </th>
+      <th scope="col" <%= sort_td_class_helper "surname" %>>
+        <%= sort_remote_link_helper t(:Surname), 'surname' %>
+        <%= image_tag("arrow_up.gif", :class =>"arrow_up", :size => "14x14") %>
+        <%= image_tag("arrow_down.gif", :class =>"arrow_down", :size => "14x14") %>
+      </th>
+      <% if CONFIG['state'] %>
+      <th scope="col" <%= sort_td_class_helper "state" %>>
+        <%= sort_remote_link_helper t(:State), 'state' %>
+        <%= image_tag("arrow_up.gif", :class =>"arrow_up", :size => "14x14") %>
+        <%= image_tag("arrow_down.gif", :class =>"arrow_down", :size => "14x14") %>
+      </th>
+      <% end %>
+      <% if CONFIG['city'] %>
+      <th scope="col" <%= sort_td_class_helper "city" %>>
+        <%= sort_remote_link_helper t(:City), 'city' %>
+        <%= image_tag("arrow_up.gif", :class =>"arrow_up", :size => "14x14") %>
+        <%= image_tag("arrow_down.gif", :class =>"arrow_down", :size => "14x14") %>
+      </th>
+      <% end %>
+      <th scope="col" <%= sort_td_class_helper "verified" %>>
+        <%= sort_remote_link_helper t(:Verified_qm), 'verified' %>
+        <%= image_tag("arrow_up.gif", :class =>"arrow_up", :size => "14x14") %>
+        <%= image_tag("arrow_down.gif", :class =>"arrow_down", :size => "14x14") %>
+      </th>
+      <th scope="col" <%= sort_td_class_helper "active" %>>
+        <%= sort_remote_link_helper t(:Active_qm), 'active' %>
+        <%= image_tag("arrow_up.gif", :class =>"arrow_up", :size => "14x14") %>
+        <%= image_tag("arrow_down.gif", :class =>"arrow_down", :size => "14x14") %>
+      </th>
+      <% if current_operator.has_role? 'users_manager' %>
+          <th scope="col" colspan="2"><%=t :Operations %></th>
+      <% end %>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% users.each do |user| %>
+        <tr>
+          <td><%=l user.created_at %></td>
+          <td><%= link_to h(user.username), user %></td>
+          <td><%= user.given_name %></td>
+          <td><%= user.surname %></td>
+          <% if CONFIG['state'] %>
+          <td><%= user.state %></td>
+          <% end %>
+          <% if CONFIG['city'] %>
+          <td><%= user.city %></td>
+          <% end %>
+          <td><%= image_tag( user.verified? ? 'accept.png' : 'delete.png' ) %></td>
+          <td><%= image_tag( user.active? ? 'accept.png' : 'delete.png' ) %></td>
+          <% if current_operator.has_role? 'users_manager' %>
+              <td><%= link_to t(:Edit), edit_user_path(user) %></td>
+          <% end %>
+          <% if current_operator.has_role? 'users_destroyer' %>
+              <td><%= link_to t(:Destroy), user, :confirm => t(:Are_you_sure), :method => :delete %></td>
+          <% end %>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+  
+  <div class="pagination">
+    <%= total_users %> <%=t :results %>
+    <%= paginate users, :remote => true %>
+  </div>
+  <div class="clear"></div>
+</div>

@@ -1,0 +1,48 @@
+<%#
+# This file is part of the OpenWISP User Management System
+#
+# Copyright (C) 2012 OpenWISP.org
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#%>
+
+<div class="grid_12">
+  <div class="box">
+    <h2><%=t :Configuration_keys %></h2>
+
+    <table id="configuration_keys" class="hover">
+      <thead>
+        <tr>
+          <th class="key"><%=t :Key %></th>
+          <th class="value"><%=t :Value %></th>
+          <th class="operations"><%=t :Operations %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @configurations.each do |configuration| %>
+          <tr class="hover">
+            <td class="first key"><strong><%= configuration.key %></strong></td>
+            <td class="value"><%= simple_format(configuration.value.html_safe) %></td>
+            <td class="operations"><%= link_to t(:Edit), edit_configuration_path(configuration) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <script type="text/javascript">
+      $('#configuration_keys td').click(function(e){
+        location.href = $(this).parent().find('.operations a').attr('href');
+      });
+    </script>
+  </div>
+</div>

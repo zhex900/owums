@@ -1,0 +1,106 @@
+en:
+  date:
+    formats:
+      default: "%m/%d/%Y"
+
+  time:
+    formats:
+      default: "%m/%d/%y - %H:%M"
+
+  errors:
+    template:
+      header:
+        one: "There was an error"
+        other: "There were %{count} errors"
+      body: "Please fix the following errors:"
+
+  helpers:
+    submit:
+      account:
+        create: "Sign up"
+        update: "Update"
+      account_session:
+        create: "Login"
+      operator_session:
+        create: "Login"
+
+  activerecord:
+    errors:
+      messages:
+        invalid_captcha: "text and image did not match"
+        password_format: "must contains only alphabetic characters, digits, spaces or the symbol '_' and must contains at least one alphabetic character and one digit"
+        mobile_phone_format: "must contains only numbers"
+        mobile_prefix_format: "must contains only numbers"
+        mobile_suffix_format: "must contains only numbers"
+        name_format: "must contains only alphabetic characters and the following symbols: ''', '.' and ','"
+        address_format: "must contains only numbers, alphabetic characters and the following symbols: ''', '.' and ','"
+        zip_format: "is invalid"
+        email_invalid: "should look like an e-mail address"
+        eula_must_be_accepted: "must be accepted"
+        privacy_must_be_accepted: "must be accepted"
+    attributes:
+      account:
+        image_file: "ID card scan"
+      user:
+        image_file: "ID card scan"
+
+  authlogic:
+    attributes:
+      operator_session:
+        login: "Username"
+
+  simple_form:
+    "yes": 'Yes'
+    "no": 'No'
+    required:
+      text: 'required'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: "Some errors were found, please take a look:"
+
+    # Labels and hints examples
+    labels:
+      account:
+        eula_acceptance: "By clicking on the checkbox below you are agreeing to the Terms of Service"
+        privacy_acceptance: "By clicking on the checkbox below you are agreeing to the Privacy Policy"
+        new:
+          password: 'Password'
+        edit:
+          password: 'New password'
+      user:
+        eula_acceptance: "By clicking on the checkbox below the user declares to agree to the Terms of Service"
+        privacy_acceptance: "By clicking on the checkbox below the user declares to agree to the Privacy Policy"
+        new:
+          password: 'Password'
+        edit:
+          password: 'New password'
+
+    hints:
+      mobile_phone: "You will need this number to make a call. You can only use italian mobile phone carriers"
+      account:
+        captcha: "Write here the text you see in the picture below"
+        email: "The e-mail address can be used to reset your password in case you forget it"
+        password: "It must contain at least one alphabetic character and one digit and be at least 8 character long"
+        username: "You must use this username and your password to log in"
+      user:
+        active: "A disabled user cannot, in any case, use the service. The user can be reenabled only by an operator.
+          It's typically preferrable to disable the user's verified attribute since, by doing so, the user can re-verify
+          him/her self autonomously.
+        "
+        email: "The e-mail address can be used to reset the user's password in case the user forgets it"
+        username: "You must use this username and your password to log in"
+        verified: "A user who is not verified cannot use the service but, if he/she self-registered, can re-verify
+          by repeating the verification procedure. After a period of inactivity (typically 6 months), the non-verified user is
+          permanently deleted from the system.
+        "
+
+  views:
+    pagination:
+      first: "Start"
+      last: "Last"
+      previous: "&laquo; previous"
+      next: "next &raquo;"
+      truncate: "..."

@@ -1,0 +1,60 @@
+<%#
+# This file is part of the OpenWISP User Management System
+#
+# Copyright (C) 2012 OpenWISP.org
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#%>
+
+<div style="text-align:center;font-size:200%">
+  <% if @account.verified %>
+      <script type="text/javascript">document.location="<%= account_url %>"</script>
+  <% else %>
+      <% if @account.verify_with_mobile_phone? %>
+          <%=t :Please_verify_mobile_number %><br /><br />
+          <%=t :From_mobile_phone_number %><br />
+          <%= @account.mobile_phone %><br /><br />
+          <% numbers =  Configuration.get('verification_numbers').split(',').map { |n| n.strip } %>
+          <%= t(:Call_one_of_the_following_numbers, :count => numbers.length) %><br />
+          <% numbers.each do |number| %>
+              <p style="background-color:#90ee90"><%= number %></p>
+          <% end %>
+          <%=t :Free_call_description %><br />
+          <br />
+      <% elsif @account.verify_with_paypal? %>
+          <%=t :Please_verify_credit_card %><br />
+          <%= link_to_paypal image_tag("paypal.png"), :bill_to => @account %>
+          <%# encrypted_submit_to_paypal image_submit_tag("paypal.png"), :bill_to => @account, :target => '_blank' %>
+          <br /><br /><br />
+      <% elsif @account.verify_with_gestpay? %>
+          <%=t :Please_verify_credit_card %><br /><br />
+          <a href="javascript:owums.toggleOverlay()"><%= image_tag('gestpay_new.png') %></a>
+          <br /><br /><br />
+      <% end %>
+
+      <% unless @account.already_verified_once? or @account.verify_with_gestpay? %>
+          <% if @account.expire_time > 0 %>
+              <p style="font-size:80%"><%= t(:Verification_expire_time_remaining) %>: <strong id="expire-in"><%= @account.verification_time_remaining %></strong></p>
+              <% if @account.verify_with_mobile_phone? %>
+                  <p style="font-size:80%"><%=t :If_you_entered_a_wrong_mobile_phone_number_simply_wait_for_this_registration_to_expire %></p>
+              <% end %>
+          <% else %>
+              <p style="font-size:80%"><%= t(:Verification_expire_time_less_than_a_minute) %></p>
+          <% end %>
+      <% end %>
+  <% end %>
+  <p style="font-size:80%" class="no_js">
+    <%=t :If_problem_with_redirect %> <%= link_to t(:click_here), account_url %>
+  </p>
+</div>

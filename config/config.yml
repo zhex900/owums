@@ -1,0 +1,33 @@
+defaults: &defaults
+  # registration form
+  birth_date: false
+  address: false
+  zip: false
+  city: false
+  state: false
+  # other stuff
+  send_email_notification_to_users: true
+  automatic_captive_portal_login: true
+  mac_address_authentication: false
+  # additional languages
+  english: true
+  italian: false
+  spanish: false
+  slovenian: false
+  furlan: false
+  
+  # check called station id
+  check_called_station_id:
+    # filter radius accounting sessions older than between_min
+    between_min: 10
+    # filter radius accounting sessions newer than between_max
+    between_max: 60
+
+production:
+  <<: *defaults
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults

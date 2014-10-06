@@ -1,0 +1,46 @@
+<%#
+# This file is part of the OpenWISP User Management System
+#
+# Copyright (C) 2012 OpenWISP.org
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#%>
+
+<%= render :partial => 'verification_periodic_check.html.erb' %>
+
+<div class="grid_12">
+  <div id="verification">
+    <%= render :partial => 'verification' %>
+  </div>
+</div>
+<div class="clear"></div>
+
+<% if(@account.verify_with_gestpay?) %>
+    <div class="overlay">
+      <a class="close" data-confirm-message="<%= t :Confirm_Close_Payment_Overlay %>" data-callback-url="<%= url_for(:action => 'verification', :id => @single_access_token) %>"><%= t :Close %></a>
+      <div class="nolayout" id="bank-gateway">
+        <%= render :partial => 'credit_card_form' %>
+      </div>
+    </div>
+    
+    <div id="mask"></div>
+    <div id="loading-overlay"></div>
+    <div id="loading-message"></div>
+    <script type="text/javascript">
+        i18n = {
+            verification_message_first_step: "<%= I18n.t :verification_message_first_step %>",
+            verification_message_second_step: "<%= I18n.t :verification_message_second_step %>"
+        }
+    </script>
+<% end %>

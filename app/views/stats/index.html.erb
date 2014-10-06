@@ -1,0 +1,91 @@
+<%#
+# This file is part of the OpenWISP User Management System
+#
+# Copyright (C) 2012 OpenWISP.org
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#%>
+
+<% content_for :after_defaults do %>
+    <%= javascript_include_tag 'highcharts',
+                               'owums.graphs',
+                               'owums.registered_users_daily_graph.js',
+                               'owums.logins_graph',
+                               'owums.traffic_graph'
+    %>
+<% end %>
+
+<div class="grid_4">
+  <div class="box">
+    <h2><a href="#" id="toggle-registered_users_graph"><%= t(:Registered_users_daily) %></a></h2>
+    <div class="block small_graph" id="registered_users_daily_graph">
+      <h5 class="center"><%=t :Loading_data %> <%= image_tag "spinner.gif" %></h5>
+    </div>
+  </div>
+</div>
+
+<div class="grid_4">
+  <div class="box">
+    <h2><a href="#" id="toggle-logins_graph"><%= t(:Logins) %></a></h2>
+    <div class="block small_graph" id="logins_graph">
+      <h5 class="center"><%=t :Loading_data %> <%= image_tag "spinner.gif" %></h5>
+    </div>
+  </div>
+</div>
+
+<div class="grid_4">
+  <div class="box">
+    <h2><a href="#" id="toggle-traffic_graph"><%= t(:Traffic) %></a></h2>
+    <div class="block small_graph" id="traffic_graph">
+      <h5 class="center"><%=t :Loading_data %> <%= image_tag "spinner.gif" %></h5>
+    </div>
+  </div>
+</div>
+
+<div class="clear"></div>
+
+<div class="grid_3">
+  <div class="box">
+    <h2>
+      <%= link_to t(:Top_x_active_users, :count => 5), stat_path('top_traffic_users', :number => 5), :remote => true, :id => 'toggle-top_traffic_users' %>
+    </h2>
+    <div class="block" id="top_traffic_users">
+      <h5><%=t :Loading_data %> <%= image_tag "spinner.gif" %></h5>
+    </div>
+  </div>
+</div>
+
+<div class="grid_5">
+  <div class="box">
+    <h2>
+      <%= link_to t(:Last_x_logins, :count => 5), stat_path('last_logins', :number => 5), :remote => true, :id => 'toggle-last_logins' %>
+    </h2>
+    <div class="block" id="last_logins">
+      <h5><%=t :Loading_data %> <%= image_tag "spinner.gif" %></h5>
+    </div>
+  </div>
+</div>
+
+<div class="grid_4">
+  <div class="box">
+    <h2>
+      <%= link_to t(:Last_x_registered_users, :count => 5), stat_path('last_registered', :number => 5), :remote => true, :id => 'toggle-last_registered' %>
+    </h2>
+    <div class="block" id="last_registered">
+      <h5><%=t :Loading_data %> <%= image_tag "spinner.gif" %></h5>
+    </div>
+  </div>
+</div>
+
+<div class="clear"></div>

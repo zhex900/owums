@@ -1,0 +1,66 @@
+<%#
+# This file is part of the OpenWISP User Management System
+#
+# Copyright (C) 2012 OpenWISP.org
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#%>
+
+<div id="rad_list">
+  <div style="text-align:center">
+    <%= total_accountings %> <%=t :total_results %>
+    <%= paginate accountings, :remote => true %>
+  </div>
+  <table>
+    <thead>
+    <tr>
+      <th scope="col" <%= sort_td_class_helper "acct_start_time" %>>
+        <%= sort_remote_link_helper t(:Start_time), 'acct_start_time' %>
+        <%= image_tag("arrow_up.gif", :class =>"arrow_up", :size => "14x14") %>
+        <%= image_tag("arrow_down.gif", :class =>"arrow_down", :size => "14x14") %>
+      </th>
+      <th scope="col" <%= sort_td_class_helper "acct_stop_time" %>>
+        <%= sort_remote_link_helper t(:Stop_time), 'acct_stop_time' %>
+        <%= image_tag("arrow_up.gif", :class =>"arrow_up", :size => "14x14") %>
+        <%= image_tag("arrow_down.gif", :class =>"arrow_down", :size => "14x14") %>
+      </th>
+      <th scope="col" <%= sort_td_class_helper "acct_input_octets" %>>
+        <%= sort_remote_link_helper t(:Uploaded_bytes), 'acct_input_octets' %>
+        <%= image_tag("arrow_up.gif", :class =>"arrow_up", :size => "14x14") %>
+        <%= image_tag("arrow_down.gif", :class =>"arrow_down", :size => "14x14") %>
+      </th>
+      <th scope="col" <%= sort_td_class_helper "acct_output_octets" %>>
+        <%= sort_remote_link_helper t(:Downloaded_bytes), 'acct_output_octets' %>
+        <%= image_tag("arrow_up.gif", :class =>"arrow_up", :size => "14x14") %>
+        <%= image_tag("arrow_down.gif", :class =>"arrow_down", :size => "14x14") %>
+      </th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% accountings.each do |accounting| %>
+        <tr>
+          <td><%=l accounting.acct_start_time %></td>
+          <% if accounting.acct_stop_time.blank? %>
+              <td><%=t :online %></td>
+          <% else %>
+              <td><%=l accounting.acct_stop_time %></td>
+          <% end %>
+          <td><%= bytes_to_human(accounting.acct_input_octets) %></td>
+          <td><%= bytes_to_human(accounting.acct_output_octets) %></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

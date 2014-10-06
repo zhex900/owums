@@ -1,0 +1,125 @@
+<%#
+# This file is part of the OpenWISP User Management System
+#
+# Copyright (C) 2012 OpenWISP.org
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#%>
+
+<% content_for :after_defaults do %>
+    <%= javascript_include_tag 'highcharts',
+                               'owums.graphs',
+                               'owums.account_logins_graph',
+                               'owums.account_traffic_graph'
+    %>
+<% end %>
+
+<div class="grid_3">
+  <div class="box">
+    <div class="block" id="general_info">
+      <fieldset>
+        <p>
+          <strong><%=t :Given_name %></strong><br />
+          <%= @account.given_name %>
+        </p>
+        <p>
+          <strong><%=t :Surname %></strong><br />
+          <%= @account.surname %>
+        </p>
+        <p>
+          <strong><%=t :Username %></strong><br />
+          <%= @account.username %>
+        </p>
+        <% if @account.has_image? %>
+            <p>
+              <strong><%=t :Document_photo %></strong><br />
+              <%= document_of @account %>
+            </p>
+        <% end %>
+        <p>
+          <strong><%=t :State %></strong><br />
+          <%= @account.state %>
+        </p>
+        <% if CONFIG['city'] %>
+        <p>
+          <strong><%=t :City %></strong><br />
+          <%= @account.city %>
+        </p>
+        <% end %>
+        <% if CONFIG['address'] %>
+        <p>
+          <strong><%=t :Address %></strong><br />
+          <%= @account.address %>
+        </p>
+        <% end %>
+        <p>
+          <strong><%=t :Email %></strong><br />
+          <%= @account.email %>
+        </p>
+        <p>
+          <strong><%=t :Registration_date %></strong><br />
+          <%=l @account.created_at %>
+        </p>
+        <p>
+          <strong><%=t :Verification_date %></strong><br />
+          <% if @account.verified %>
+              <%=l @account.verified_at %>
+          <% else %>
+              <span style="color: red; "><%=t :Not_verified %></span>
+          <% end %>
+        </p>
+        <p>
+          <strong><%=t :Radius_logins %></strong><br />
+          <%= @account.radius_accountings.count %>
+        </p>
+        <p>
+          <strong><%=t :Last_login_ip %></strong><br />
+          <%= @account.last_login_ip %>
+        </p>
+      </fieldset>
+    </div>
+  </div>
+</div>
+
+<div class="grid_9">
+  <div class="box">
+    <h2><%= t(:Logins) %></h2>
+    <h4 class="no_graphs"><%=t :Graphs_not_supported %></h4>
+    <div class="block account_graph" id="account_logins_graph"></div>
+  </div>
+
+  <div class="box">
+    <h2><%= t(:Traffic) %></h2>
+    <h4 class="no_graphs"><%=t :Graphs_not_supported %></h4>
+
+    <div class="block account_graph" id="account_traffic_graph"></div>
+  </div>
+  <div class="clear"></div>
+
+  <p>
+    <%= button_to t(:Refresh_data), "", :method => :get %>
+  </p>
+</div>
+
+<div class="clear"></div>
+<div class="grid_12">
+  <div class="box">
+    <h2><%=t :User_sessions %> <%= image_tag 'spinner_black.gif', :id => 'loading', :class => 'hidden' %></h2>
+
+    <div class="block" id="rad_list_block">
+      <%= render 'common/radius_accounting_list', :accountings => @radius_accountings, :total_accountings => @total_accountings %>
+    </div>
+  </div>
+</div>
+<div class="clear"></div>

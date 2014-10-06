@@ -1,0 +1,77 @@
+<%#
+# This file is part of the OpenWISP User Management System
+#
+# Copyright (C) 2012 OpenWISP.org
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#%>
+
+<% content_for :after_defaults do %>
+    <%= stylesheet_link_tag 'jquery-ui/styles' %>
+    <%= javascript_include_tag 'jquery-ui' %>
+<% end %>
+
+<div class="grid_12">
+  <div class="box">
+    <h2><%=t :Browse_users %> <%= image_tag 'spinner_black.gif', :id => 'loading', :class => 'hidden' %></h2>
+    <div class="block" id="search">
+      <div id="quicksearch">
+        <fieldset>
+          <legend><%=t :Search_user %></legend>
+          <%= form_tag users_path, :method => :get, :remote => true do %>
+              <%= label_tag :search, t(:Search_by_user_name_surname_mobile) %>
+              <p>
+                <%= text_field_tag :search %>
+              </p>
+              <% if User.self_verification_methods.length > 1 %>
+                <p id="verification-method-search">
+                  <label><%=t :Verification_method %>: <%= select_tag :verification_method, options_for_select(user_search_verification_methods()) %> </label> 
+                </p>
+              <% end %>
+              <p id="verified-radio">
+                <%=t :Verified %>:
+                <input type="radio" name="verified" value="" id="verified-all" checked="checked" /> <label for="verified-all"><%=t :all %></label>
+                <input type="radio" name="verified" value="true" id="verified-yes" /> <label for="verified-yes"><%=t :Yes %></label>
+                <input type="radio" name="verified" value="false" id="verified-no" /> <label for="verified-no"><%=t :No %></label>
+              </p>
+              <p id="enabled-radio">
+                <%=t :Enabled %>:
+                <input type="radio" name="enabled" value="" id="enabled-all" checked="checked" /> <label for="enabled-all"><%=t :all %></label>
+                <input type="radio" name="enabled" value="true" id="enabled-yes" /> <label for="enabled-yes"><%=t :Yes %></label>
+                <input type="radio" name="enabled" value="false" id="enabled-no" /> <label for="enabled-no"><%=t :No %></label>
+              </p>
+          <% end %>
+        </fieldset>
+      </div>
+      
+      <script>
+        $(function(){
+          $("#verified-radio").buttonset();
+          $("#enabled-radio").buttonset();
+          $('#verified-radio, #enabled-radio, #verification_method').change(function(e){
+            $(this).parents('form').trigger('submit')
+          });
+        });
+      </script>
+
+      <div class="block" id="search_block">
+        <%= render 'list', :users => @users, :total_users => @total_users %>
+      </div>
+      
+      <%= link_to t(:Add_new_user), new_user_url, :class => 'button submit' %>
+    </div>
+  </div>
+</div>
+
+<div class="clear"></div>

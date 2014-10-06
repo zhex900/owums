@@ -1,0 +1,72 @@
+<%#
+# This file is part of the OpenWISP User Management System
+#
+# Copyright (C) 2012 OpenWISP.org
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#%>
+
+<div class="grid_12">
+  <div class="box articles">
+    <div class="block" id="articles">
+      <div class="first article">
+        <h3><%=t_safe :General_infos %></h3>
+        <p class="meta"><%=t_safe :General_infos_subheading %></p>
+
+        <p style="font-size:105%">
+          <%=t_safe :General_infos_howto, :login => t(:Manage_your_account) %>
+        </p>
+        
+        <div style="font-size:105%">
+          <%= @custom_instructions %>
+        </div>
+      </div>
+
+      <div class="article">
+        <h3><%=t_safe :Manage_your_account %></h3>
+        <p class="meta"><%=t_safe :Manage_your_account_subheading %></p>
+
+        <p style="font-size:105%">
+          <%=t_safe :Manage_your_account_howto, :login => t(:Manage_your_account) %>
+        </p>
+      </div>
+
+      <div class="article">
+        <h3><%=t_safe :Register %></h3>
+        <p class="meta"><%=t_safe :Register_subheading %></p>
+
+        <p style="font-size:105%">
+          <%=t_safe :Register_howto_1, :registration => t(:Register)  %>
+        </p>
+        <ol>
+          <li><%=t_safe :Data_insertion %></li>
+          <li><%=t_safe :Data_verification %></li>
+        </ol>
+        <p style="font-size:105%">
+          <%=t_safe :Register_howto_2, :registration => t(:Register) %>
+        </p>
+      </div>
+
+      <div class="article">
+        <h3><%=t_safe :Reset_password %></h3>
+        <p class="meta"><%=t_safe :Reset_password_subheading %></p>
+
+        <p style="font-size:105%">
+          <%=t_safe :Reset_password_howto, :reset_password => t(:Reset_password) %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+

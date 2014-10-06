@@ -1,0 +1,66 @@
+<%#
+# This file is part of the OpenWISP User Management System
+#
+# Copyright (C) 2012 OpenWISP.org
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#%>
+
+<% if user.new_record? %>
+    <% if user_verification_methods.length == 1 %>
+        <%= f.input :verification_method, :as => :hidden %>
+    <% else %>
+        <%= f.input :verification_method, :collection => user_verification_select, :prompt => false %>
+    <% end %>
+<% else %>
+    <%= f.input :verification_method,
+                :collection => account_verification_select + user_verification_select,
+                :disabled => true
+    %>
+<% end %>
+
+<%= render 'common/form_elements/mobile_phone', :form => f, :owner => user, :prefixes => mobile_prefixes %>
+
+<%= render 'common/form_elements/identity_document', :form => f, :owner => user %>
+
+<% if user.new_record? %>
+    <%= f.input :verified, :as => :hidden, :value => 1 %>
+    <%= f.input :active, :as => :hidden, :value => 1 %>
+<% else %>
+    <div id="user_status">
+      <%= f.input :verified %>
+      <%= f.input :active %>
+    </div>
+<% end %>
+
+<%= render 'common/form_elements/personal_data', :form => f, :owner => user, :countries => countries %>
+
+<div id="eula_priv">
+  <%= f.input :eula_acceptance, :error => false %>
+  <%= link_to t(:Click_for_eula), document_path('eula.pdf'), :target => '_blank' %>
+  <br>
+  <br>
+  <%= f.input :privacy_acceptance, :error => false %>
+  <%= link_to t(:Click_for_privacy), document_path('privacy.pdf'), :target => '_blank' %>
+</div>
+
+<%= f.input :notes, :input_html => { :rows => 4 } %>
+
+<% if current_operator.has_role? 'users_manager' %>
+    <%= f.label :radius_groups %>
+    <%= render 'radius_group_select', :user => user, :radius_groups => radius_groups %>
+<% end %>
+
+<%= f.button :submit %>
+<%= link_to t(:Undo), :back %>

@@ -1,0 +1,17 @@
+#loading {
+    /*IE7 hack*/
+    *margin: -20px 5px 0 0;
+}
+
+#mobile_phone_password_reset_mobile_prefix {
+    width: 60%;
+}
+
+#mobile_phone_password_reset_mobile_suffix {
+    width: 80%;
+}
+
+.button, .submit, input[type="submit"] {
+    width: 180px;
+    display: block;
+}

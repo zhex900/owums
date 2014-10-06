@@ -1,0 +1,385 @@
+1:
+  system_key: f
+  key: sip_servers
+  value: 193.204.5.206
+
+2:
+  system_key: f
+  key: sip_listen_address
+  value: 0.0.0.0
+
+3:
+  system_key: f
+  key: verification_numbers
+  value: 0644486656
+
+4:
+  system_key: f
+  key: notifier_base_url
+  value: "localhost:3000"
+
+5:
+  system_key: f
+  key: notifier_protocol
+  value: "https"
+
+6:
+  system_key: t
+  key: default_radacct_results_per_page
+  value: 20
+
+7:
+  system_key: t
+  key: default_user_search_results_per_page
+  value: 20
+
+8:
+  system_key: t
+  key: mobile_phone_registration_expire
+  value: 300
+
+9:
+  system_key: t
+  key: default_user_search_results_per_page
+  value: 20
+
+10:
+  system_key: f
+  key: default_radius_group
+  value: "Users"
+
+22:
+  system_key: f
+  key: paypal_enabled
+  value: false
+    
+23:
+  system_key: f
+  key: ipn_url
+  value: https://www.paypal.com/cgi-bin/webscr
+    
+24:
+  system_key: f
+  key: sandbox_ipn_url
+  value: https://www.sandbox.paypal.com/cgi-bin/webscr
+
+# BEGIN: "DO NOT EDIT - NEEDED FOR UNIT TESTING"
+25:
+  system_key: f
+  key: credit_card_verification_cost
+  value: 1.20
+
+20:
+  system_key: f
+  key: "tax_rate"
+  value: 20
+# END;
+
+26:
+  system_key: t
+  key: credit_card_registration_expire
+  value: 300
+
+27:
+  system_key: f
+  key: paypal_business_account
+  value: mtylty_1277212890_biz@gmail.com
+
+28:
+  system_key: f
+  key: ipn_cert_id
+  value: ""
+
+29:
+  system_key: f
+  key: ipn_shared_secret
+  value: ""
+
+32:
+  system_key: t
+  key: mailer_custom_url_enabled
+  value: 'false'
+
+33:
+  system_key: t
+  key: mailer_custom_url
+  value: "http://placeholder.url.com/&t="
+
+34:
+  system_key: f
+  key: local_time_radius_accounting
+  value: 'true'
+
+40:
+  system_key: f
+  key: sip_listen_port
+  value: 5060
+  
+41:
+  system_key: f
+  key: password_reset_from
+  value: no-reply@localhost
+
+42:
+  system_key: f
+  key: password_reset_instructions_custom
+  value: ""
+
+59:
+  system_key: f
+  key: "custom_account_instructions_en"
+  value: ""
+
+60:
+  system_key: f
+  key: "custom_account_instructions_it"
+  value: ""
+
+61:
+  system_key: t
+  key: "logo"
+  value: "openwisp-logo.png"
+
+62:
+  system_key: f
+  key: "verification_explain_mobile_it"
+  value: "<p>Al fine di <strong>prevenire abusi del servizio</strong>, siamo costretti a <strong>verificare l'identità</strong> degli utenti che utilizzano il servizio wifi.</p><p>Sei sei in possesso di una <strong>SIM italiana</strong> seleziona il metodo di verifica dell'identità <strong>\"Numero di cellulare\"</strong> dal seguente menu.</p>"
+
+63:
+  system_key: f
+  key: "verification_explain_mobile_en"
+  value: "<p>In order to <strong>prevent any abuse of service</strong>, we have to <strong>verify the identity of all the users</strong> who use this wifi service.</p><p>If you own an <strong>Italian mobile phone SIM card</strong> select <strong>\"Mobile Phone Number\"</strong> from the following menu.</p>"
+
+64:
+  system_key: f
+  key: "verification_explain_creditcard_it"
+  value: "<p>Al fine di <strong>prevenire abusi del servizio</strong>, siamo costretti a <strong>verificare l'identità</strong> degli utenti che utilizzano il servizio wifi.</p><p>Sei sei in possesso di una <strong>SIM italiana</strong> seleziona il metodo di verifica dell'identità <strong>\"Numero di cellulare\"</strong> dal seguente menu, altrimenti seleziona il metodo <strong>\"Carta di Credito\"</strong>.</p>"
+
+65:
+  system_key: f
+  key: "verification_explain_creditcard_en"
+  value: "<p>In order to <strong>prevent any abuse of service</strong>, we have to <strong>verify the identity of all the users</strong> who use this wifi service.</p><p>If you own an <strong>Italian mobile phone SIM card</strong> select <strong>\"Mobile Phone Number\"</strong> from the following menu, otherwise you can select the method <strong>\"Credit Card\"</strong>.</p>"
+
+71:
+  system_key: f
+  key: "captcha_enabled"
+  value: "true"
+
+72:
+  system_key: f
+  key: "gestpay_enabled"
+  value: "true"
+
+73:
+  system_key: f
+  key: "gestpay_shoplogin"
+  value: "GESPAY55880"
+
+74:
+  system_key: f
+  key: "gestpay_currency"
+  value: "242"
+
+75:
+  system_key: f
+  key: "gestpay_webservice_url"
+  value: "https://testecomm.sella.it/gestpay/gestpayws/WSs2s.asmx?WSDL"
+
+76:
+  system_key: f
+  key: "gestpay_webservice_method"
+  value: "verification"
+
+77:
+  system_key: f
+  key: "gestpay_vbv_session"
+  value: "300"
+
+78:
+  system_key: f
+  key: "gestpay_vbv_url"
+  value: "https://testecomm.sella.it/gestpay/pagamvisa3d.asp"
+
+80:
+  system_key: f
+  key: "account_notification_message_en"
+  value: "Hi {first_name} {last_name},
+You just created and verified successfully your account for wifi access.
+
+You can now login and use the wifi service with username \"{username}\" and the password you chose during the registration phase.
+
+You can monitor your use of the available traffic at the account management page:
+{account_url}
+
+If you ever forget your password, you can use the password reset procedure available at the following web address:
+{password_reset_url}
+{invoice_message}
+
+Best regards
+Staff"
+
+81:
+  system_key: f
+  key: "account_notification_message_it"
+  value: "Ciao {first_name} {last_name},
+
+Hai appena creato e verificato con successo il tuo account per l'accesso al wifi.
+
+Ora puoi effettuare il login e usare il servizio wifi, il tuo username è \"{username}\" e la password è quella che hai scelto in fase di registrazione.
+
+Puoi monitorare l'utilizzo del servizio dalla pagina di gestione del tuo account:
+{account_url}
+
+Se dovessi dimenticare la password, potrai utilizzare la procedura di reset disponibile al seguente indirizzo:
+{password_reset_url}
+{invoice_message}
+
+Cordiali Saluti
+Staff"
+
+82:
+  system_key: f
+  key: "account_notification_subject_en"
+  value: "New account created on [OpenWISP User Management System]"
+
+83:
+  system_key: f
+  key: "account_notification_subject_it"
+  value: "Nuovo account creato su [OpenWISP User Management System]"
+
+90:
+  system_key: f
+  key: "invoice_owner_en"
+  value: "Changeme"
+
+91:
+  system_key: f
+  key: "invoice_owner_it"
+  value: "Cambiami"
+
+92:
+  system_key: f
+  key: "invoice_description_en"
+  value: "Identity verification for wifi service."
+
+93:
+  system_key: f
+  key: "invoice_description_it"
+  value: "Verifica Identità per servizio wifi."
+
+94:
+  system_key: f
+  key: "invoice_logo"
+  value: "openwisp-logo.png"
+
+95:
+  system_key: f
+  key: "invoice_owner_email"
+  value: "test@test.com"
+
+96:
+  system_key: f
+  key: "invoice_admin_notification_subject_en"
+  value: "[OWUMS] New Receipt Generated"
+
+97:
+  system_key: f
+  key: "invoice_admin_notification_subject_it"
+  value: "[OWUMS] Nuova Ricevuta Generata"
+
+109:
+  system_key: f
+  key: "gestpay_invoicing_enabled"
+  value: "true"
+
+110:
+  system_key: f
+  key: "credit_card_max_yearly_transactions"
+  value: 10000
+
+111:
+  system_key: f
+  key: "credit_card_year_start"
+  value: "01-01"
+
+112:
+  system_key: f
+  key: "credit_card_max_transaction_warning_threshold"
+  value: 100
+
+113:
+  system_key: f
+  key: "credit_card_max_daily_user_transactions"
+  value: 10
+
+120:
+  system_key: f
+  key: "password_reset_subject_fur"
+  value: "Istruzions par tornâ a vê la password"
+
+121:
+  system_key: f
+  key: "password_reset_instructions_before_reset_url_fur"
+  value: "A je stade fate une domande par netâ vie la password par il to account.
+  Se no tu sês stât tu a fale, fâs finte di no vê let chest messaç.
+  Se tu as fât tu la domande, clicê su la URL ca ven."
+
+122:
+  system_key: t
+  key: "password_reset_instructions_after_reset_url_fur"
+  value: " Se la URL di prime no lave, prove a copiâ e incolâ la direzion in tal to program par là in rêt.
+  Se tu tornis a vê problemis par netâ vie la password, par plasê disinus."
+
+123:
+  system_key: f
+  key: "custom_account_instructions_fur"
+  value: ""
+
+124:
+  system_key: f
+  key: "verification_explain_mobile_fur"
+  value: "<p>Al fine di <strong>prevignî la int ca aprofite dal servizi</strong>, nô o sin obleâts a <strong>verificâ la identitât</strong> dai utents ca doprin il servizi wifi.</p><p>Se tu âs une <strong>schede taliane</strong> sielç ce mût verificâ la to identitât <strong>\"Numar di telefonin\"</strong> da la liste ca ven.</p>"
+
+125:
+  system_key: f
+  key: "verification_explain_creditcard_fur"
+  value: "<p>Al fine di <strong>prevignî la int ca aprofite dal servizi</strong>, nô o sin obleâts a <strong>verificâ la identitât</strong> dai utents ca doprin il servizi wifi.</p><p>Se tu âs une <strong>schede taliane</strong> sielç ce mût verificâ la to identitât <strong>\"Numar di telefonin\"</strong> da la liste ca ven, o se no sielç il metodo <strong>\"Cjarte di Credit\"</strong>.</p>"
+
+126:
+  system_key: f
+  key: "account_notification_message_fur"
+  value: "Mandi {first_name} {last_name},
+  
+  Tu âs apene creât e verificât cun sucès il to account par jentrâ cun la wifi.
+  
+  Cumò tu podis meti i dâts par jentrâ e doprâ il servizi Wi-Fi, il to username al è \"{username}\" e la password ae che sielte cuante ca tu ti sês regjistrât.
+  
+  Tu podis tignî sot voli il servizi da la pagjine di gjestion dal to account:
+  {account_url}
+  
+  Se tu vessis dismenteât la password, tu podis doprâ la procedure par netâ vie; ca tu cjatis a la direzion ca ven:
+  {password_reset_url}
+  {invoice_message}
+  
+  Preseât
+  Staff"
+
+127:
+  system_key: f
+  key: "account_notification_subject_fur"
+  value: "Gnûf account creât su [OpenWISP User Management System]"
+
+128:
+  system_key: f
+  key: "invoice_owner_fur"
+  value: "Cambimi"
+
+129:
+  system_key: f
+  key: "invoice_description_fur"
+  value: "Verifiche Identitât par il servizi Wi-Fi."
+
+130:
+  system_key: f
+  key: "invoice_admin_notification_subject_fur"
+  value: "[OWUMS] Fate Gnove Ricevude"
