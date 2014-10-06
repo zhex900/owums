@@ -30,61 +30,91 @@
     <div class="block" id="general_info">
       <fieldset>
         <p>
-          <strong><%=t :Given_name %></strong><br />
-          <%= @account.given_name %>
+          <strong><%= t :Name %></strong><br/>
+          <%= @account.given_name %>  <%= @account.surname %>
         </p>
+        <%# Comment out surname %>
+        <% if false %>
+            <p>
+              <strong><%= t :Surname %></strong><br/>
+              <%= @account.surname %>
+            </p>
+        <% end %>
+
         <p>
-          <strong><%=t :Surname %></strong><br />
-          <%= @account.surname %>
-        </p>
-        <p>
-          <strong><%=t :Username %></strong><br />
+          <strong><%= t :Username %></strong><br/>
           <%= @account.username %>
         </p>
         <% if @account.has_image? %>
             <p>
-              <strong><%=t :Document_photo %></strong><br />
+              <strong><%= t :Document_photo %></strong><br/>
               <%= document_of @account %>
             </p>
         <% end %>
-        <p>
-          <strong><%=t :State %></strong><br />
-          <%= @account.state %>
-        </p>
+        <%# Comment out state %>
+        <% if false %>
+            <p>
+              <strong><%= t :State %></strong><br/>
+              <%= @account.state %>
+            </p>
+        <% end %>
+
         <% if CONFIG['city'] %>
-        <p>
-          <strong><%=t :City %></strong><br />
-          <%= @account.city %>
-        </p>
+            <p>
+              <strong><%= t :City %></strong><br/>
+              <%= @account.city %>
+            </p>
         <% end %>
         <% if CONFIG['address'] %>
-        <p>
-          <strong><%=t :Address %></strong><br />
-          <%= @account.address %>
-        </p>
+            <p>
+              <strong><%= t :Address %></strong><br/>
+              <%= @account.address %>
+            </p>
         <% end %>
         <p>
-          <strong><%=t :Email %></strong><br />
+          <strong><%= t :Email %></strong><br/>
           <%= @account.email %>
         </p>
+
+        <%# Usage, with percentage %>
         <p>
-          <strong><%=t :Registration_date %></strong><br />
-          <%=l @account.created_at %>
+          <strong>Usage this month: </strong> <br>
+          <%= bytes_to_human(@account.total_traffic_from_reset) %>
         </p>
+
         <p>
-          <strong><%=t :Verification_date %></strong><br />
-          <% if @account.verified %>
-              <%=l @account.verified_at %>
-          <% else %>
-              <span style="color: red; "><%=t :Not_verified %></span>
-          <% end %>
+          <strong>Quota: </strong> <br>
+          <%= bytes_to_human(@account.quota) %>
         </p>
+
         <p>
-          <strong><%=t :Radius_logins %></strong><br />
-          <%= @account.radius_accountings.count %>
+          <strong>Next reset date: </strong> <br>
+          <%= @account.next_reset.strftime('%a, %d-%b-%Y') %>
         </p>
+
+        <%# Comment out some fields. %>
+        <% if false %>
+            <p>
+              <strong><%= t :Registration_date %></strong><br/>
+              <%= l @account.created_at %>
+            </p>
+
+            <p>
+              <strong><%= t :Verification_date %></strong><br/>
+              <% if @account.verified %>
+                  <%= l @account.verified_at %>
+              <% else %>
+                  <span style="color: red; "><%= t :Not_verified %></span>
+              <% end %>
+            </p>
+
+            <p>
+              <strong><%= t :Radius_logins %></strong><br/>
+              <%= @account.radius_accountings.count %>
+            </p>
+        <% end %>
         <p>
-          <strong><%=t :Last_login_ip %></strong><br />
+          <strong><%= t :Last_login_ip %></strong><br/>
           <%= @account.last_login_ip %>
         </p>
       </fieldset>
@@ -95,13 +125,14 @@
 <div class="grid_9">
   <div class="box">
     <h2><%= t(:Logins) %></h2>
-    <h4 class="no_graphs"><%=t :Graphs_not_supported %></h4>
+    <h4 class="no_graphs"><%= t :Graphs_not_supported %></h4>
+
     <div class="block account_graph" id="account_logins_graph"></div>
   </div>
 
   <div class="box">
     <h2><%= t(:Traffic) %></h2>
-    <h4 class="no_graphs"><%=t :Graphs_not_supported %></h4>
+    <h4 class="no_graphs"><%= t :Graphs_not_supported %></h4>
 
     <div class="block account_graph" id="account_traffic_graph"></div>
   </div>
@@ -115,7 +146,7 @@
 <div class="clear"></div>
 <div class="grid_12">
   <div class="box">
-    <h2><%=t :User_sessions %> <%= image_tag 'spinner_black.gif', :id => 'loading', :class => 'hidden' %></h2>
+    <h2><%= t :User_sessions %> <%= image_tag 'spinner_black.gif', :id => 'loading', :class => 'hidden' %></h2>
 
     <div class="block" id="rad_list_block">
       <%= render 'common/radius_accounting_list', :accountings => @radius_accountings, :total_accountings => @total_accountings %>
