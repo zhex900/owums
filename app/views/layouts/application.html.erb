@@ -161,15 +161,23 @@
           </li>
           <li class="secondary"><%= menu_link_to t(:Logout), operator_logout_url, :method => :delete %></li>
       <% else %>
+
+          <%# Disable instructions page  %>
+          <% if false %>
           <li><%= menu_link_to t(:How_to_use_service), account_instructions_url, :disable_if => on_root? %></li>
+          <% end %>
           <% if current_account %>
               <li><%= menu_link_to t(:Show_account_info), account_url %></li>
               <li><%= menu_link_to t(:Edit_account), edit_account_url %></li>
               <li class="secondary"><%= link_to t(:Logout), account_logout_url, :method => :delete %></li>
           <% else %>
+
+              <%# Disable the links on the top page.  %>
+              <% if false %>
               <li><%= menu_link_to t(:Login), account_login_url %></li>
               <li><%= menu_link_to t(:Register).html_safe, account_registration_url %></li>
               <li><%= menu_link_to t(:Forgot_password), password_reset_url %></li>
+              <% end %>
           <% end %>
       <% end %>
     </ul>
