@@ -36,8 +36,8 @@ module ApplicationHelper
   end
 
   def bytes_to_human(bytes)
-    bytes = bytes.to_i
-    bytes > 1024 ? bytes > 1048576 ? bytes > 1073741824 ? bytes > 1099511627776 ? (bytes / 1099511627776).to_s + " TBytes" : (bytes / 1073741824).to_s + " GBytes" : (bytes / 1048576).to_s + " MBytes" : (bytes / 1024).to_s + " KBytes" : (bytes).to_s + " Bytes"
+    bytes = bytes.to_f
+    bytes > 1024 ? bytes > 1048576 ? bytes > 1073741824 ? bytes > 1099511627776 ? (bytes / 1099511627776).round(2).to_s + " TBytes" : (bytes / 1073741824).round(2).to_s + " GBytes" : (bytes / 1048576).round(2).to_s + " MBytes" : (bytes / 1024).round(2).to_s + " KBytes" : (bytes).round(2).to_s + " Bytes"
   end
 
   def is_touchscreen_device?
