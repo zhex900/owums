@@ -44,6 +44,8 @@ class Account < AccountCommon
                   :mobile_suffix_confirmation, :verification_method,
                   :eula_acceptance, :privacy_acceptance, :captcha
 
+
+
   def validate_captcha?
     @validate_captcha == true
   end
@@ -54,6 +56,51 @@ class Account < AccountCommon
   end
 
   # Class methods
+
+  # Added by Jake He
+  # return the Reset-date from radius group checks.
+  # Default date is 1
+  def reset_date
+    begin
+      date=self.radius_groups.first.radius_checks.where(check_attribute: 'Reset-date').first.value.to_f
+    rescue
+      date=1
+    end
+    return date;
+  end
+
+  # return the monthly quota from radius group checks
+  # Default quota is -1
+  def quota
+    begin
+      q=self.radius_groups.first.radius_checks.where(check_attribute: 'Total-Bytes').first.value
+    rescue
+      q=-1
+    end
+    return q
+  end
+
+  # return the total traffic from the last rest date.
+  def total_traffic_from_reset
+     return self.traffic_from(last_reset)
+  end
+
+  # added by Jake He
+  # given a reset date find the last reset date (look backward)
+  # reset date is a number of the date in the month.
+  def last_reset
+    return self.next_reset.prev_month
+  end
+
+  # given a reset date fnd the next reset date (look forward)
+  def next_reset
+    next_reset_date = Date.today
+    if (Date.today.day >= reset_date)
+      return Date.new(next_reset_date.year, next_reset_date.next_month.month, reset_date)
+    else
+      return Date.new(next_reset_date.year, next_reset_date.month, reset_date)
+    end
+  end
 
   def self.total_traffic
     total_megabytes = 0
