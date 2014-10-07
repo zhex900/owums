@@ -19,7 +19,7 @@
 
 [
     {
-        "name": "<%=t :Last_x_days_time, :count => 14 %>",
+        "name": "<%=t :Last_x_days_time, :count => @current_account.days_since_reset %>",
         "data": <%= data.to_json %>
     }
 ]
