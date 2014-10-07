@@ -39,9 +39,18 @@ class StatsController < ApplicationController
   end
 
   def show
+
+    if !@current_account.nil?
+      logger.debug ("account")
+      from = @current_account.last_reset
+    else
+      logger.debug ("nil account")
+      from = Date.new(Date.today.year,Date.today.month,2)
+    end
+
     @stat = (AVAILABLE_STATS_GRAPH & [ params[:id] ]).first
-    # Display stats from the last reset date. Added by Jake He
-    @from = Date.strptime(params[:from], I18n.t('date.formats.default')) rescue @current_account.last_reset #14.days.ago.to_date
+    # Display stats from the last reset date. Added by Jake He  #14.days.ago.to_date
+    @from = Date.strptime(params[:from], I18n.t('date.formats.default')) rescue from
     @to = Date.strptime(params[:to], I18n.t('date.formats.default')) rescue Date.today
     @number = params[:number].to_i rescue 5
 
