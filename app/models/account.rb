@@ -102,6 +102,11 @@ class Account < AccountCommon
     end
   end
 
+  # return the number of days since the last reset
+  def days_since_reset
+    return (Date.today-last_reset).to_i
+  end
+
   def self.total_traffic
     total_megabytes = 0
     Account.all.each do |account|
