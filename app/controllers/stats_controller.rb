@@ -40,8 +40,8 @@ class StatsController < ApplicationController
 
   def show
     @stat = (AVAILABLE_STATS_GRAPH & [ params[:id] ]).first
-
-    @from = Date.strptime(params[:from], I18n.t('date.formats.default')) rescue 14.days.ago.to_date
+    # Display stats from the last reset date. Added by Jake He
+    @from = Date.strptime(params[:from], I18n.t('date.formats.default')) rescue @current_account.last_reset #14.days.ago.to_date
     @to = Date.strptime(params[:to], I18n.t('date.formats.default')) rescue Date.today
     @number = params[:number].to_i rescue 5
 
