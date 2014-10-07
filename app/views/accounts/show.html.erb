@@ -123,20 +123,22 @@
 </div>
 
 <div class="grid_9">
+
+
+  <div class="box">
+    <h2><%= t(:'Daily usage for the period (')%><%= @account.last_reset.strftime('%d/%m/%y') %> to <%= @account.next_reset.strftime('%d/%m/%y') %>)</h2>
+    <h4 class="no_graphs"><%= t :Graphs_not_supported %></h4>
+
+    <div class="block account_graph" id="account_traffic_graph"></div>
+  </div>
+  <div class="clear"></div>
+
   <div class="box">
     <h2><%= t(:Logins) %></h2>
     <h4 class="no_graphs"><%= t :Graphs_not_supported %></h4>
 
     <div class="block account_graph" id="account_logins_graph"></div>
   </div>
-
-  <div class="box">
-    <h2><%= t(:Traffic) %></h2>
-    <h4 class="no_graphs"><%= t :Graphs_not_supported %></h4>
-
-    <div class="block account_graph" id="account_traffic_graph"></div>
-  </div>
-  <div class="clear"></div>
 
   <p>
     <%= button_to t(:Refresh_data), "", :method => :get %>
