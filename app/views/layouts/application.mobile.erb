@@ -58,10 +58,8 @@
 	<div data-role="content">
 	  <% if on_root? %>
 		<ul data-role="listview" data-inset="true">
-		  <li><%= link_to t(:How_to_use_service), account_instructions_path %></li>
 		  <li><%= link_to t(:Manage_your_account), account_login_path %></li>
 		  <% if !current_account %>
-			<li><%= link_to t(:Register).html_safe, account_registration_path %></li>
 			<li><%= link_to t(:Forgot_password), password_reset_path %></li>
 		  <% end %>
 		</ul>
