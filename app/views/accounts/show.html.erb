@@ -18,12 +18,111 @@
 #%>
 
 <% content_for :after_defaults do %>
-    <%= javascript_include_tag 'highcharts',
+    <%= javascript_include_tag 'highcharts.v.4',
                                'owums.graphs',
                                'owums.account_logins_graph',
                                'owums.account_traffic_graph'
     %>
 <% end %>
+
+
+<script type="text/javascript">
+    var chart;
+    $(document).ready(function () {
+        chart = new Highcharts.Chart({
+            chart: {
+                backgroundColor: null,
+                renderTo: 'usage_bar_chart',
+                type: 'bar',
+                panning: false
+            },
+            title: {
+                text: ''
+            },
+            xAxis: {
+                gridLineWidth: 0,
+                enabled: false,
+                lineWidth: -1,
+                categories: [''],
+                labels: {
+                    enabled: false
+                }
+            },
+            yAxis: {
+                maxPadding: 0,
+                enabled: true,
+                gridLineWidth: 0,
+                lineWidth: 0,
+                boarderWidth: 0,
+                min: 0,
+                max: parseFloat("<%= bytes_to_human(@account.quota) %>") - 1.5,
+                title: {
+                    text: '',
+                    margin: 0
+                },
+                labels: {
+                    enabled: false
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            tooltip: {
+                formatter: function () {
+                    if (this.series.name != 'Quota') {
+                        return 'Used ' +
+                                Math.round(this.y / parseFloat("<%= bytes_to_human(@account.quota) %>") * 100) + '% (' +
+                                "<%= bytes_to_human(@account.total_traffic_from_reset) %>" + ") ";
+                    }
+                    else {
+                        return false;
+                    }
+                }
+            },
+            plotOptions: {
+                series: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true,
+                        align: 'center',
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black',
+                        style: {
+                            fontWeight: 'bold',
+                            fontSize: '13px'
+                        },
+                        formatter: function () {
+                            if (this.series.name != 'Quota') {
+                                return "<%= bytes_to_human(@account.total_traffic_from_reset) %>" +
+                                        ' used of ' + "<%= bytes_to_human(@account.quota) %>" + ' quota';
+                            }
+                            else {
+                                return '';
+                            }
+                        }
+                    }
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [
+                {
+                    name: 'Quota',
+                    data: [parseFloat("<%= bytes_to_human(@account.quota) %>")],
+                    color: 'grey'
+                },
+                {
+                    name: 'Usage',
+                    data: [ parseFloat("<%= bytes_to_human(@account.total_traffic_from_reset) %>")],
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor)
+                }
+            ]
+        });
+        $('.highcharts-axis').css('display', 'none');
+    });
+
+</script>
+
 
 <div class="grid_3">
   <div class="box">
@@ -123,14 +222,23 @@
 </div>
 
 <div class="grid_9">
+  <div class="box">
+    <h2><%= t(:'Volume Usage') %></h2>
+    <h4 class="no_graphs"><%= t :Graphs_not_supported %></h4>
 
+    <div id="usage_bar_chart" style=" min-width: 110px; max-width: 700px; height: 100px; margin: 0 auto"></div>
+
+  </div>
+  <div class="clear"></div>
 
   <div class="box">
-    <h2><%= t(:'Daily usage for the period (')%><%= @account.last_reset.strftime('%d/%m/%y') %> to <%= @account.next_reset.strftime('%d/%m/%y') %>)</h2>
+    <h2><%= t(:'Daily usage for the period (') %><%= @account.last_reset.strftime('%d/%m/%y') %>
+      to <%= @account.next_reset.strftime('%d/%m/%y') %>)</h2>
     <h4 class="no_graphs"><%= t :Graphs_not_supported %></h4>
 
     <div class="block account_graph" id="account_traffic_graph"></div>
   </div>
+
   <div class="clear"></div>
 
   <div class="box">
