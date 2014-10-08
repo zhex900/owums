@@ -40,6 +40,11 @@ module ApplicationHelper
     bytes > 1024 ? bytes > 1048576 ? bytes > 1073741824 ? bytes > 1099511627776 ? (bytes / 1099511627776).round(2).to_s + " TBytes" : (bytes / 1073741824).round(2).to_s + " GBytes" : (bytes / 1048576).round(2).to_s + " MBytes" : (bytes / 1024).round(2).to_s + " KBytes" : (bytes).round(2).to_s + " Bytes"
   end
 
+  def bytes_to_GB(bytes)
+    bytes = bytes.to_f
+    return  (bytes / 1073741824).round(2).to_s + " GBytes"
+  end
+
   def is_touchscreen_device?
     is_device?('iphone') || is_device?('ipod') || is_device?('ipad') || is_device?('android')
   end
