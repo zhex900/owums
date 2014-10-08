@@ -89,7 +89,7 @@ class Account < AccountCommon
   # given a reset date find the last reset date (look backward)
   # reset date is a number of the date in the month.
   def last_reset
-    return self.next_reset.prev_month
+      return self.next_reset.prev_month rescue Date.today
   end
 
   # given a reset date fnd the next reset date (look forward)
@@ -105,6 +105,11 @@ class Account < AccountCommon
   # return the number of days since the last reset
   def days_since_reset
     return (Date.today-last_reset).to_i
+  end
+
+  # return the number of days until the next reset
+  def days_until_next_reset
+    return (next_reset-Date.today).to_i
   end
 
   def self.total_traffic
