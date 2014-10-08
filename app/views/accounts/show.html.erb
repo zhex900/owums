@@ -140,10 +140,6 @@
             </p>
         <% end %>
 
-        <p>
-          <strong><%= t :Username %></strong><br/>
-          <%= @account.username %>
-        </p>
         <% if @account.has_image? %>
             <p>
               <strong><%= t :Document_photo %></strong><br/>
@@ -182,10 +178,13 @@
         </p>
 
         <p>
-          <strong>Quota: </strong> <br>
+          <strong>Monthly quota: </strong> <br>
           <%= bytes_to_human(@account.quota) %>
         </p>
-
+        <p>
+          <strong>Days remaining: </strong> <br>
+          <%= @account.days_until_next_reset %>
+        </p>
         <p>
           <strong>Next reset date: </strong> <br>
           <%= @account.next_reset.strftime('%a, %d-%b-%Y') %>
@@ -211,11 +210,12 @@
               <strong><%= t :Radius_logins %></strong><br/>
               <%= @account.radius_accountings.count %>
             </p>
-        <% end %>
+
         <p>
           <strong><%= t :Last_login_ip %></strong><br/>
           <%= @account.last_login_ip %>
         </p>
+        <% end %>
       </fieldset>
     </div>
   </div>
@@ -233,7 +233,7 @@
 
   <div class="box">
     <h2><%= t(:'Daily usage for the period (') %><%= @account.last_reset.strftime('%d/%m/%y') %>
-      to <%= @account.next_reset.strftime('%d/%m/%y') %>)</h2>
+      to <%= (@account.next_reset-1).strftime('%d/%m/%y') %>)</h2>
     <h4 class="no_graphs"><%= t :Graphs_not_supported %></h4>
 
     <div class="block account_graph" id="account_traffic_graph"></div>
