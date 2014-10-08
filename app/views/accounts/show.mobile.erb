@@ -71,7 +71,7 @@
                 formatter: function () {
                     if (this.series.name != 'Quota') {
                         return 'Used ' +
-                                Math.round(this.y / parseFloat("<%= bytes_to_human(@account.quota) %>") * 100) + '% (' +
+                                Math.round("<%= (@account.total_traffic_from_reset) %>" / "<%= (@account.quota) %>" * 100) + '% (' +
                                 "<%= bytes_to_human(@account.total_traffic_from_reset) %>" + ") ";
                     }
                     else {
@@ -112,7 +112,7 @@
                 },
                 {
                     name: 'Usage',
-                    data: [ parseFloat("<%= bytes_to_human(@account.total_traffic_from_reset) %>")],
+                    data: [ parseFloat("<%= bytes_to_GB(@account.total_traffic_from_reset) %>")],
                     color: (Highcharts.theme && Highcharts.theme.dataLabelsColor)
                 }
             ]
