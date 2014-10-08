@@ -82,6 +82,7 @@ class Account < AccountCommon
 
   # return the total traffic from the last rest date.
   def total_traffic_from_reset
+     #logger.fatal 'reset date:' + "#{last_reset.inspect}"
      return self.traffic_from(last_reset)
   end
 
@@ -96,9 +97,9 @@ class Account < AccountCommon
   def next_reset
     next_reset_date = Date.today
     if (Date.today.day >= reset_date)
-      return Date.new(next_reset_date.year, next_reset_date.next_month.month, reset_date)
+      return Date.new(next_reset_date.year, next_reset_date.next_month.month, reset_date)+1
     else
-      return Date.new(next_reset_date.year, next_reset_date.month, reset_date)
+      return Date.new(next_reset_date.year, next_reset_date.month, reset_date)+1
     end
   end
 
