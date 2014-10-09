@@ -55,48 +55,55 @@
       </ul>
   <% end %>
 
+
   <div data-role="content">
     <% if on_root? %>
-        <ul data-role="listview" data-inset="true">
-          <li><%= link_to t(:Manage_your_account), account_login_path %></li>
-          <%# Comment out some fields. %>
-          <% if false %>
-              <% if !current_account %>
-                  <li><%= link_to t(:Forgot_password), password_reset_path %></li>
-              <% end %>
-          <% end %>
-        </ul>
-<%# Comment out languages.%>
+        <div>
+          <%= render 'account_sessions/new' %>
+        </div>
+        <%# Comment out some fields. %>
         <% if false %>
-            <p>&nbsp;</p>
-            <fieldset class="ui-grid-a">
-              <% if CONFIG['italian'] %>
-                  <div class="ui-block-a">
-                    <%= link_to_locale 'it', 'data-role' => 'button', 'data-transition' => 'flip' %>
-                  </div>
+            <ul data-role="listview" data-inset="true">
+              <li><%= link_to t(:Manage_your_account), account_login_path %></li>
+              <%# Comment out some fields. %>
+              <% if false %>
+                  <% if !current_account %>
+                      <li><%= link_to t(:Forgot_password), password_reset_path %></li>
+                  <% end %>
               <% end %>
-              <% if CONFIG['english'] %>
-                  <div class="ui-block-b">
-                    <%= link_to_locale 'en', 'data-role' => 'button', 'data-transition' => 'flip' %>
-                  </div>
-              <% end %>
-              <% if CONFIG['slovenian'] %>
-                  <div class="ui-block-a">
-                    <%= link_to_locale 'sl', 'data-role' => 'button', 'data-transition' => 'flip' %>
-                  </div>
-              <% end %>
-              <% if CONFIG['furlan'] %>
-                  <div class="ui-block-b">
-                    <%= link_to_locale 'fur', 'data-role' => 'button', 'data-transition' => 'flip' %>
-                  </div>
-              <% end %>
-              <% if CONFIG['spanish'] %>
-                  <div class="ui-block-a">
-                    <%= link_to_locale 'es', 'data-role' => 'button', 'data-transition' => 'flip' %>
-                  </div>
-              <% end %>
-              <p>&nbsp;</p>
-            </fieldset>
+            </ul>
+<%# Comment out languages.%>
+            <% if false %>
+                <p>&nbsp;</p>
+                <fieldset class="ui-grid-a">
+                  <% if CONFIG['italian'] %>
+                      <div class="ui-block-a">
+                        <%= link_to_locale 'it', 'data-role' => 'button', 'data-transition' => 'flip' %>
+                      </div>
+                  <% end %>
+                  <% if CONFIG['english'] %>
+                      <div class="ui-block-b">
+                        <%= link_to_locale 'en', 'data-role' => 'button', 'data-transition' => 'flip' %>
+                      </div>
+                  <% end %>
+                  <% if CONFIG['slovenian'] %>
+                      <div class="ui-block-a">
+                        <%= link_to_locale 'sl', 'data-role' => 'button', 'data-transition' => 'flip' %>
+                      </div>
+                  <% end %>
+                  <% if CONFIG['furlan'] %>
+                      <div class="ui-block-b">
+                        <%= link_to_locale 'fur', 'data-role' => 'button', 'data-transition' => 'flip' %>
+                      </div>
+                  <% end %>
+                  <% if CONFIG['spanish'] %>
+                      <div class="ui-block-a">
+                        <%= link_to_locale 'es', 'data-role' => 'button', 'data-transition' => 'flip' %>
+                      </div>
+                  <% end %>
+                  <p>&nbsp;</p>
+                </fieldset>
+            <% end %>
         <% end %>
     <% end %>
     <%= yield unless on_root? %>
