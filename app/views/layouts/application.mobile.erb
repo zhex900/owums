@@ -31,79 +31,84 @@
   <%= javascript_include_tag 'fluid16' %>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" href="<%= image_path 'favicon.png' %>" />
+  <link rel="shortcut icon" href="<%= image_path 'favicon.png' %>"/>
   <%= csrf_meta_tag %>
 </head>
 <body>
-  <div data-role="page" data-url="<%= on_root? ? '' : content_for(:data_url) %>">
+<div data-role="page" data-url="<%= on_root? ? '' : content_for(:data_url) %>">
 
-	<div data-role="header" data-position="inline" data-backbtn="false">
-	  <% if on_root? %>
-		  <h1>OpenWISP.org</h1><br />
-	  <% else %>
-		  <%= content_for :header %> <%= content_for :back %>
-	  <% end %>
+  <div data-role="header" data-position="inline" data-backbtn="false">
+    <% if on_root? %>
+        <h1>OpenWISP.org</h1><br/>
+    <% else %>
+        <%= content_for :header %> <%= content_for :back %>
+    <% end %>
 
-	  <% if current_account %>
-		  <%= mobile_link_to_logout %>
-	  <% end %>
-	</div>
-
-	<% if flash[:notice] %>
-		<ul id="notice" data-role="listview" data-theme="g">
-		  <li><%= flash[:notice] %></li>
-		</ul>
-	<% end %>
-
-	<div data-role="content">
-	  <% if on_root? %>
-		<ul data-role="listview" data-inset="true">
-		  <li><%= link_to t(:Manage_your_account), account_login_path %></li>
-		  <% if !current_account %>
-			<li><%= link_to t(:Forgot_password), password_reset_path %></li>
-		  <% end %>
-		</ul>
-
-		<p>&nbsp;</p>
-		<fieldset class="ui-grid-a">
-		  <% if CONFIG['italian'] %>
-		  <div class="ui-block-a">
-			  <%= link_to_locale 'it', 'data-role' => 'button', 'data-transition' => 'flip' %>
-		  </div>
-		  <% end %>
-		  <% if CONFIG['english'] %>
-		  <div class="ui-block-b">
-			  <%= link_to_locale 'en', 'data-role' => 'button', 'data-transition' => 'flip' %>
-		  </div>
-		  <% end %>
-		  <% if CONFIG['slovenian'] %>
-		  <div class="ui-block-a">
-			  <%= link_to_locale 'sl', 'data-role' => 'button', 'data-transition' => 'flip' %>
-		  </div>
-		  <% end %>
-		  <% if CONFIG['furlan'] %>
-		  <div class="ui-block-b">
-			  <%= link_to_locale 'fur', 'data-role' => 'button', 'data-transition' => 'flip' %>
-		  </div>
-		  <% end %>
-		  <% if CONFIG['spanish'] %>
-		  <div class="ui-block-a">
-			  <%= link_to_locale 'es', 'data-role' => 'button', 'data-transition' => 'flip' %>
-		  </div>
-		  <% end %>
-		  <p>&nbsp;</p>
-		</fieldset>
-	  <% end %>
-
-	  <%= yield unless on_root? %>
-	</div>
-
-	<p>&nbsp;</p>
-
-	<div id="footer" data-role="footer">
-	  <p>Copyright (C) <%= Date.today.year %> <a href="http://openwisp.org/" target="_blank">OpenWISP.org</a></p>
-	  <p><%= link_to_toggle_mobile 'data-ajax' => false %></p>
-	</div>
+    <% if current_account %>
+        <%= mobile_link_to_logout %>
+    <% end %>
   </div>
+
+  <% if flash[:notice] %>
+      <ul id="notice" data-role="listview" data-theme="g">
+        <li><%= flash[:notice] %></li>
+      </ul>
+  <% end %>
+
+  <div data-role="content">
+    <% if on_root? %>
+        <ul data-role="listview" data-inset="true">
+          <li><%= link_to t(:Manage_your_account), account_login_path %></li>
+          <%# Comment out some fields. %>
+          <% if false %>
+              <% if !current_account %>
+                  <li><%= link_to t(:Forgot_password), password_reset_path %></li>
+              <% end %>
+          <% end %>
+        </ul>
+<%# Comment out languages.%>
+        <% if false %>
+            <p>&nbsp;</p>
+            <fieldset class="ui-grid-a">
+              <% if CONFIG['italian'] %>
+                  <div class="ui-block-a">
+                    <%= link_to_locale 'it', 'data-role' => 'button', 'data-transition' => 'flip' %>
+                  </div>
+              <% end %>
+              <% if CONFIG['english'] %>
+                  <div class="ui-block-b">
+                    <%= link_to_locale 'en', 'data-role' => 'button', 'data-transition' => 'flip' %>
+                  </div>
+              <% end %>
+              <% if CONFIG['slovenian'] %>
+                  <div class="ui-block-a">
+                    <%= link_to_locale 'sl', 'data-role' => 'button', 'data-transition' => 'flip' %>
+                  </div>
+              <% end %>
+              <% if CONFIG['furlan'] %>
+                  <div class="ui-block-b">
+                    <%= link_to_locale 'fur', 'data-role' => 'button', 'data-transition' => 'flip' %>
+                  </div>
+              <% end %>
+              <% if CONFIG['spanish'] %>
+                  <div class="ui-block-a">
+                    <%= link_to_locale 'es', 'data-role' => 'button', 'data-transition' => 'flip' %>
+                  </div>
+              <% end %>
+              <p>&nbsp;</p>
+            </fieldset>
+        <% end %>
+    <% end %>
+    <%= yield unless on_root? %>
+  </div>
+
+  <p>&nbsp;</p>
+
+  <div id="footer" data-role="footer">
+    <p>Copyright (C) <%= Date.today.year %> <a href="http://openwisp.org/" target="_blank">OpenWISP.org</a></p>
+
+    <p><%= link_to_toggle_mobile 'data-ajax' => false %></p>
+  </div>
+</div>
 </body>
 </html>
