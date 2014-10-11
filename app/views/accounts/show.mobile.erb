@@ -33,8 +33,7 @@
                 backgroundColor: null,
                 renderTo: 'usage_bar_chart',
                 type: 'bar',
-                panning: false,
-                animation: false
+                panning: false
             },
             title: {
                 text: ''
@@ -81,6 +80,7 @@
             },
             plotOptions: {
                 series: {
+                    animation: false,
                     stacking: 'normal',
                     dataLabels: {
                         enabled: true,
