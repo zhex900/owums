@@ -33,8 +33,12 @@
 
             <%= f.input :password %>
 
-            <div id="remember_me">
+            <div id="remember_me" style="float:left; width:50%">
               <%= f.input :remember_me, :as => :boolean %>
+
+            </div>
+            <div style="float:right">
+              <a style="font-size:12px" href="/account/reset">Password reset</a>
             </div>
 
             <%= f.button :submit, :class => 'submit button nomargin' %>
