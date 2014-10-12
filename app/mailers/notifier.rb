@@ -16,8 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class Notifier < ActionMailer::Base  
-  default_url_options[:host] = Configuration.get('notifier_base_url')
-  default_url_options[:protocol]  =  Configuration.get('notifier_protocol')
+  default_url_options[:host] = "churchinperth.no-ip.biz:3000" #Configuration.get('notifier_base_url')
+  default_url_options[:protocol]  =  "http" #Configuration.get('notifier_protocol')
 
   default :from => Configuration.get('password_reset_from')
 
