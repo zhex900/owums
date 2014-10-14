@@ -51,9 +51,11 @@
         <%= f.input_field :remember_me, :as => :boolean %>
         <%= f.label :remember_me %>
       </li>
-
       <li>
         <%= f.button :submit %>
+      </li>
+      <li>
+      <%= link_to "Password reset", "/account/reset" %>
       </li>
     </ul>
 <% end %>
