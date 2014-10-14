@@ -24,7 +24,7 @@
 <% end %>
 
 <% content_for :back do %>
-    <%= mobile_link_back_to new_password_reset_path %>
+    <%= mobile_link_back_to root_path, 'data-ajax' => false %>
 <% end %>
 
 <%= form_tag email_password_resets_path, 'data-ajax' => false do %>
