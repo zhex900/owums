@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
 
   def toggle_mobile
     session[:mobile_view] = !session[:mobile_view]
-    redirect_to account_login_path #current_account ? account_path : root_path
+    redirect_to current_account ? account_path : root_path
   end
 
   # TODO: check to see if it works (and if it's still needed)
