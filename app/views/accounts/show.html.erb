@@ -181,10 +181,12 @@
           <strong>Monthly quota: </strong> <br>
           <%= bytes_to_human(@account.quota) %>
         </p>
+
         <p>
           <strong>Days remaining: </strong> <br>
           <%= @account.days_until_next_reset %>
         </p>
+
         <p>
           <strong>Next reset date: </strong> <br>
           <%= @account.next_reset.strftime('%a, %d-%b-%Y') %>
@@ -211,10 +213,10 @@
               <%= @account.radius_accountings.count %>
             </p>
 
-        <p>
-          <strong><%= t :Last_login_ip %></strong><br/>
-          <%= @account.last_login_ip %>
-        </p>
+            <p>
+              <strong><%= t :Last_login_ip %></strong><br/>
+              <%= @account.last_login_ip %>
+            </p>
         <% end %>
       </fieldset>
     </div>
@@ -264,3 +266,11 @@
   </div>
 </div>
 <div class="clear"></div>
+
+<script>
+    //Runs when the page is loaded.
+    $(document).ready(function () {
+        <%= RadiusAccounting.cleanup_stale_radius_accountings %>
+        <%= RadiusAccounting.cleanup_zerotraffic_radius_accountings %>
+    });
+</script>
