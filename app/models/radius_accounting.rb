@@ -293,6 +293,11 @@ class RadiusAccounting < ActiveRecord::Base
     puts "OWUMS-Stale-Invalid #{invalid}\n\n"
   end
 
+  # Delete all sessions with zero traffic
+  def self.cleanup_zerotraffic_radius_accountings
+    RadiusAccounting.delete_all("(AcctStopTime IS NOT NULL OR AcctStopTime != '0000-00-00 00:00:00') AND AcctInputOctets = 0 AND AcctOutputOctets = 0")
+  end
+
   # Accessors
 
   ## Read
