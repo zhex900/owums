@@ -82,7 +82,8 @@ class Account < AccountCommon
 
   # return the total traffic from the last rest date.
   def total_traffic_from_reset
-     #logger.fatal 'reset date:' + "#{last_reset.inspect}"
+    # logger.fatal 'last_reset:' + "#{last_reset.inspect}"
+    # logger.fatal 'next_reset:' + "#{next_reset.inspect}"
      return self.traffic_from(last_reset)
   end
 
@@ -96,10 +97,13 @@ class Account < AccountCommon
   # given a reset date fnd the next reset date (look forward)
   def next_reset
     next_reset_date = Date.today
+ #   logger.fatal 'reset date:' + "#{reset_date.inspect}"
     if (Date.today.day >= reset_date)
-      return Date.new(next_reset_date.year, next_reset_date.next_month.month, reset_date)+1
-    else
-      return Date.new(next_reset_date.year, next_reset_date.month, reset_date)+1
+      #bug need to add year in December
+      next_reset_date = next_reset_date >> 1
+      return Date.new(next_reset_date.year, next_reset_date.month, reset_date)
+    el
+      return Date.new(next_reset_date.year, next_reset_date.month, reset_date)
     end
   end
 
@@ -110,6 +114,7 @@ class Account < AccountCommon
 
   # return the number of days until the next reset
   def days_until_next_reset
+   # logger.fatal 'days_until_next_reset:' + "#{Date.today.inspect}"
     return (next_reset-Date.today).to_i
   end
 
